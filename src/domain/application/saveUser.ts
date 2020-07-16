@@ -1,11 +1,11 @@
 import { UserRepository } from "./../interfaces";
 import { createUser } from "./../entities/user";
 
-export type UserSaver = (age: number, name: string) => number;
+export type UserSaver = (age: number, name: string, email: string, summary: string, keyTerms: string[]) => number;
 
 export function makeUserSaver(userRepository: UserRepository): UserSaver {
-  return (age, name) => {
-    const user = createUser(age, name);
+  return (age, name, email, summary, keyTerms) => {
+    const user = createUser(age, name, email, summary, keyTerms);
     const userId = userRepository.saveUser(user);
     return userId;
   };

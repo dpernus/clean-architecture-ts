@@ -12,10 +12,11 @@ import {
 const router = new Router();
 const inMemoryUserRepository = makeInMemoryUserRepository();
 
+//TODO: add joi validation
 router.post('/user', ctx => {
-  const { age, name } = ctx.request.body;
+  const userInfo = ctx.request.body;
   const userSaver = makeUserSaver(inMemoryUserRepository);
-  const userId = saveUserController({ age, name}, userSaver);
+  const userId = saveUserController(userInfo, userSaver);
   console.log("UserId:", userId);
 
   ctx.response.status = 200

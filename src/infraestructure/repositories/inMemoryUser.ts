@@ -18,8 +18,8 @@ export function makeInMemoryUserRepository(): UserRepository {
     if (dbUser === undefined) {
       throw new Error(`User with id ${userId} not found`);
     }
-    const jsonUser = JSON.parse(dbUser);
-    return createUser(jsonUser.age, jsonUser.name, jsonUser.id);
+    const {personalData: {age, name, email}, summary, keyTerms, id} = JSON.parse(dbUser);
+    return createUser(age, name, email, summary, keyTerms, id);
   };
 
   return { saveUser, getUser };

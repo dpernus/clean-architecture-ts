@@ -4,13 +4,17 @@ import { GetUserById } from "../../domain/application/getUserById";
 interface UserInput {
   age: number;
   name: string;
+  email: string;
+  summary: string;
+  keyTerms: string[];
 }
 
 export function saveUserController(
   userInfo: UserInput,
   saveUserUseCase: UserSaver
 ) {
-  return saveUserUseCase(userInfo.age, userInfo.name);
+  const { age, name, email, summary, keyTerms } = userInfo
+  return saveUserUseCase(age, name, email, summary, keyTerms);
 }
 
 export function getUserByIdController(
