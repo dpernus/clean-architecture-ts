@@ -1,9 +1,9 @@
-import { UserRepository } from "./../interfaces";
-import { createUser } from "./../entities/user";
+import { UserRepository } from "../interfaces";
+import { createUser } from "../entities/user";
 
-export type UserSaver = (age: number, name: string, email: string, summary: string, keyTerms: string[]) => number;
+export type UserCreator = (age: number, name: string, email: string, summary: string, keyTerms: string[]) => number;
 
-export function makeUserSaver(userRepository: UserRepository): UserSaver {
+export function makeUserCreator(userRepository: UserRepository): UserCreator {
   return (age, name, email, summary, keyTerms) => {
     const user = createUser(age, name, email, summary, keyTerms);
     const userId = userRepository.saveUser(user);
@@ -12,7 +12,7 @@ export function makeUserSaver(userRepository: UserRepository): UserSaver {
 }
 
 // USE CASE WITH CLASS
-// class UserSaver {
+// class UserCreator {
 //   private persisterUser: UserPersister;
 
 //   public constructor(usPersist: UserPersister) {

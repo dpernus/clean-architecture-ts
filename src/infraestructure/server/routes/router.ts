@@ -1,22 +1,17 @@
 import Router from 'koa-router';
 
-import { makeInMemoryUserRepository } from "./../../repositories/inMemoryUser";
-import { makeUserSaver } from "./../../../domain/application/saveUser";
-import { makeGetUserById } from "./../../../domain/application/getUserById";
-
 import {
   getUserByIdController,
-  saveUserController
+  createUserController,
+  addJobController
 } from "./../../controllers/user";
 
 const router = new Router();
-const inMemoryUserRepository = makeInMemoryUserRepository();
 
 //TODO: add joi validation
 router.post('/user', ctx => {
   const userInfo = ctx.request.body;
-  const userSaver = makeUserSaver(inMemoryUserRepository);
-  const userId = saveUserController(userInfo, userSaver);
+  const userId = createUserController(userInfo);
   console.log("UserId:", userId);
 
   ctx.response.status = 200
@@ -25,12 +20,19 @@ router.post('/user', ctx => {
 
 router.get('/user/:id', ctx => {
   const { id }= ctx.params;
-  const getUser = makeGetUserById(inMemoryUserRepository);
-  const user = getUserByIdController(id, getUser);
+  const user = getUserByIdController(id);
   console.log("User", user);
 
   ctx.response.status = 200;
   ctx.response.body = user;
+})
+
+router.post('/user/job', ctx => {
+  const { userId, jobInfo } = ctx.request.body
+  const userWithJob = addJobController(userId, jobInfo)
+  
+  ctx.response.status = 200
+  ctx.response.body = userWithJob
 })
 
 export default router;

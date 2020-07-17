@@ -1,10 +1,10 @@
-interface Institution {
+export interface Institution {
   name: string
   description: string
   web: string
 }
 
-interface Job {
+export interface Job {
   date: string
   institution: Institution
   charge: string
@@ -32,7 +32,7 @@ export interface User {
   }
   summary: string
   keyTerms: string[]
-  workExperience?: Job[]
+  workExperience: Job[]
   education?: Course[]
   skills?: Skills
 }
@@ -62,7 +62,7 @@ export function createUser(
     throw new Error("Invalid User values");
   }
   const personalData = {age, name, email}
-  return { id: id || generateId(), personalData, summary, keyTerms };
+  return { id: id || generateId(), personalData, summary, keyTerms, workExperience: [] };
 }
 
 // DOMAIN WITH CLASS

@@ -4,6 +4,7 @@ import { User, createUser } from "../../domain/entities/user";
 export function makeInMemoryUserRepository(): UserRepository {
   const persistedUsers: string[] = [];
 
+  //TODO: update for create and modify user if exist
   const saveUser = (user: User) => {
     persistedUsers.push(JSON.stringify(user));
     console.log(persistedUsers.length);
