@@ -1,2 +1,3 @@
 # clean-architecture-ts
-Created with CodeSandbox
+
+This is a project for manage resumee information
