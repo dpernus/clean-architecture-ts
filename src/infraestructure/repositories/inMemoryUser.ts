@@ -2,26 +2,30 @@ import { UserRepository } from "../../domain/interfaces";
 import { User, createUser } from "../../domain/entities/user";
 
 export function makeInMemoryUserRepository(): UserRepository {
-  const persistedUsers: string[] = [];
+  const persistedUsers = new Map<string, string>();
 
-  //TODO: update for create and modify user if exist
-  const saveUser = (user: User) => {
-    persistedUsers.push(JSON.stringify(user));
-    console.log(persistedUsers.length);
+  const addUser = (user: User) => {
+    persistedUsers.set(user.id.toString(), JSON.stringify(user));
+    console.log(persistedUsers.size);
     return user.id;
   };
-
+  
   const getUser = (userId: number): User => {
-    const dbUser = persistedUsers.find(
-      (user: string) => JSON.parse(user).id === userId
-    );
-
+    const dbUser = persistedUsers.get(userId.toString())
+    
     if (dbUser === undefined) {
       throw new Error(`User with id ${userId} not found`);
     }
+    
     const {personalData: {age, name, email}, summary, keyTerms, id} = JSON.parse(dbUser);
     return createUser(age, name, email, summary, keyTerms, id);
   };
+  
+    const updateUser = (user: User) => {
+      const userId = user.id.toString();
+      persistedUsers.set(userId, JSON.stringify(user));
+      console.log('Update user', persistedUsers.size);
+    }
 
-  return { saveUser, getUser };
+  return { addUser, getUser, updateUser };
 }

@@ -35,7 +35,7 @@ export function makeJobAdder (userRepository: UserRepository) : JobAdder {
     const job = createJob(date, institution, charge, achivements)
 
     user.workExperience.push(job)
-    userRepository.saveUser(user)
+    userRepository.updateUser(user)
     return user
   }
 }

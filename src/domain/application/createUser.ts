@@ -6,7 +6,7 @@ export type UserCreator = (age: number, name: string, email: string, summary: st
 export function makeUserCreator(userRepository: UserRepository): UserCreator {
   return (age, name, email, summary, keyTerms) => {
     const user = createUser(age, name, email, summary, keyTerms);
-    const userId = userRepository.saveUser(user);
+    const userId = userRepository.addUser(user);
     return userId;
   };
 }
