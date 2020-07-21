@@ -44,6 +44,7 @@ export function createUser(
   email: string,
   summary: string,
   keyTerms: string[],
+  workExperience: Job[] = [],
   id: number | undefined = undefined
 ): User {
   const isValidUser = (age: number, name: string, email: string, summary: string, keyTerms: string[]) =>
@@ -62,7 +63,7 @@ export function createUser(
     throw new Error("Invalid User values");
   }
   const personalData = {age, name, email}
-  return { id: id || generateId(), personalData, summary, keyTerms, workExperience: [] };
+  return { id: id || generateId(), personalData, summary, keyTerms, workExperience };
 }
 
 // DOMAIN WITH CLASS
