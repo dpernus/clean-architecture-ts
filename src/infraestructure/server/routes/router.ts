@@ -4,7 +4,7 @@ import {
   getUserByIdController,
   createUserController,
   addJobController
-} from "./../../controllers/user";
+} from "./../../controllers";
 
 const router = new Router();
 
