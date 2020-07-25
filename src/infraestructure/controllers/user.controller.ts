@@ -11,7 +11,7 @@ export interface UserInput {
 }
 
 export function makeCreateUserController (userCreator: UserCreator) {
-  return (userInfo: UserInput) => {
+  return (userInfo: UserInput) => {   
     const { age, name, email, summary, keyTerms } = userInfo
     return userCreator(age, name, email, summary, keyTerms);
   }

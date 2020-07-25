@@ -1,22 +1,14 @@
 import Router from 'koa-router';
+import createUserRoute from './createUser.route'
 
 import {
   getUserByIdController,
-  createUserController,
   addJobController
 } from "./../../controllers";
 
 const router = new Router();
 
-//TODO: add joi validation
-router.post('/user', ctx => {
-  const userInfo = ctx.request.body;
-  const userId = createUserController(userInfo);
-  console.log("UserId:", userId);
-
-  ctx.response.status = 200
-  ctx.body = { userId }
-})
+createUserRoute(router)
 
 router.get('/user/:id', ctx => {
   const { id }= ctx.params;
