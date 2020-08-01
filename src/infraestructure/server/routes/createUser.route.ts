@@ -24,10 +24,10 @@ export default function createUserRoute (router: Router) {
       return
     }
 
-    const userId = createUserController(userInfo);
-    console.log("UserId:", userId);
-    ctx.status = 200
-    ctx.body = { userId }
+    const { response, status } = createUserController(userInfo);
+    console.log("UserId:", response);
+    ctx.status = status
+    ctx.body = response
   })
 }
 

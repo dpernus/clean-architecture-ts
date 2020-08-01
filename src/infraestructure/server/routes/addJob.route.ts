@@ -1,7 +1,7 @@
 import Router from 'koa-router'
 import Joi from '@hapi/joi'
 import { addJobController } from '../../controllers'
-import { JobInfo } from '../../controllers/job'
+import { JobInfo } from '../../controllers/job.controller'
 
 const jobSchema = Joi.object <{userId: number, jobInfo: JobInfo}>({
   userId: Joi.number().integer().required(),
@@ -27,10 +27,9 @@ export default function addJobRoute (router : Router) {
       return
       }
 
-    const { userId, jobInfo } = ctx.request.body
-    const userWithJob = addJobController(userId, jobInfo)
+    const { response, status } = addJobController(validation.value)
     
-    ctx.status = 200
-    ctx.body = userWithJob
+    ctx.body = response
+    ctx.status = status
   })
 }

@@ -10,15 +10,15 @@ export function makeInMemoryUserRepository(): UserRepository {
     return user.id;
   };
   
-  const getUser = (userId: number): User => {
+  const getUser = (userId: number): User | null => {
     const dbUser = persistedUsers.get(userId.toString())
     
-    if (dbUser === undefined) {
-      throw new Error(`User with id ${userId} not found`);
+    if (dbUser !== undefined) {
+      const {personalData: {age, name, email}, summary, keyTerms, id, workExperience} = JSON.parse(dbUser);
+      return createUser(age, name, email, summary, keyTerms, workExperience, id);
     }
     
-    const {personalData: {age, name, email}, summary, keyTerms, id, workExperience} = JSON.parse(dbUser);
-    return createUser(age, name, email, summary, keyTerms, workExperience, id);
+    return null
   };
   
     const updateUser = (user: User) => {

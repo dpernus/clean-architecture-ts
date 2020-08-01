@@ -5,7 +5,7 @@ import { makeGetUserById } from "./../../domain/application/getUserById";
 import { makeJobAdder } from "../../domain/application/addJob";
 
 import { makeCreateUserController, makeGetUserByIdController } from './user.controller'
-import { makeAddJobController } from './job'
+import { makeAddJobController } from './job.controller'
  
 const inMemoryUserRepository = makeInMemoryUserRepository();
 

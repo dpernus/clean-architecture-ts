@@ -1,5 +1,6 @@
 import { UserRepository } from './../interfaces'
 import { User, Institution, Job } from '../entities/user';
+import { makeError } from '../../utils/errors';
 
 export type JobAdder = (userId: number, date: string, institutionName: string, institutionDescription: string, institutionWeb: string | undefined, charge: string, achivements: string[]) => User
 
@@ -31,6 +32,11 @@ function createJob (date: string, institution: Institution, charge: string, achi
 export function makeJobAdder (userRepository: UserRepository) : JobAdder {
   return (userId, date, institutionName, institutionDescription, institutionWeb, charge, achivements) => {
     const user = userRepository.getUser(userId)
+
+    if(user === null){
+      throw makeError('USER_NOT_FOUND', `User with id ${userId} not found`);
+    }
+
     const institution = createInstitution(institutionName, institutionDescription, institutionWeb)
     const job = createJob(date, institution, charge, achivements)
 
