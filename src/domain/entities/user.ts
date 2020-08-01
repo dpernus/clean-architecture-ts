@@ -1,7 +1,7 @@
 export interface Institution {
   name: string
   description: string
-  web: string
+  web?: string
 }
 
 export interface Job {

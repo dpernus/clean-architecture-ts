@@ -1,9 +1,9 @@
 import { UserRepository } from './../interfaces'
 import { User, Institution, Job } from '../entities/user';
 
-export type JobAdder = (userId: number, date: string, institutionName: string, institutionDescription: string, institutionWeb: string, charge: string, achivements: string[]) => User
+export type JobAdder = (userId: number, date: string, institutionName: string, institutionDescription: string, institutionWeb: string | undefined, charge: string, achivements: string[]) => User
 
-function createInstitution (name: string, description: string, web: string) : Institution {
+function createInstitution (name: string, description: string, web: string | undefined) : Institution {
   const isValidName = name !== ''
   const isValidDescription =  description.length > 10
 

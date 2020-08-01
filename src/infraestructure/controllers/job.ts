@@ -4,7 +4,7 @@ export interface JobInfo {
   date: string
   institutionName: string
   institutionDescription: string 
-  institutionWeb: string
+  institutionWeb?: string
   charge: string
   achivements: string[]
 }
