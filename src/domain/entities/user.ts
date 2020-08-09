@@ -1,3 +1,5 @@
+import { makeError } from "../../utils/errors"
+
 export interface Institution {
   name: string
   description: string
@@ -11,11 +13,11 @@ export interface Job {
   achivements: string[]
 }
 
-interface Course {
+export interface Course {
   date: string
   title: string
   institution: Institution
-  description: string[]
+  description?: string[]
 }
 
 type Skills = Record<string, string[]>
@@ -37,6 +39,18 @@ export interface User {
   skills?: Skills
 }
 
+export function createInstitution (name: string, description: string, web: string | undefined) : Institution {
+  const isValidName = name !== ''
+  const isValidDescription =  description.length > 10
+
+  const isValidInstitution = isValidName && isValidDescription
+  if(!isValidInstitution) {
+    throw makeError('INVALID_DATA', 'Invalid data for create Institution')
+  }
+
+  return {name, description, web}
+}
+
 //TODO: add optional user fields and validation for those case
 export function createUser(
   age: number,
@@ -45,6 +59,7 @@ export function createUser(
   summary: string,
   keyTerms: string[],
   workExperience: Job[] = [],
+  education: Course[] = [],
   id: number | undefined = undefined
 ): User {
   const isValidUser = (age: number, name: string, email: string, summary: string, keyTerms: string[]) =>
@@ -63,7 +78,7 @@ export function createUser(
     throw new Error("Invalid User values");
   }
   const personalData = {age, name, email}
-  return { id: id || generateId(), personalData, summary, keyTerms, workExperience };
+  return { id: id || generateId(), personalData, summary, keyTerms, workExperience, education };
 }
 
 // DOMAIN WITH CLASS

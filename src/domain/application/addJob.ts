@@ -1,20 +1,8 @@
 import { UserRepository } from './../interfaces'
-import { User, Institution, Job } from '../entities/user';
+import { User, Institution, Job, createInstitution } from '../entities/user';
 import { makeError } from '../../utils/errors';
 
 export type JobAdder = (userId: number, date: string, institutionName: string, institutionDescription: string, institutionWeb: string | undefined, charge: string, achivements: string[]) => User
-
-function createInstitution (name: string, description: string, web: string | undefined) : Institution {
-  const isValidName = name !== ''
-  const isValidDescription =  description.length > 10
-
-  const isValidInstitution = isValidName && isValidDescription
-  if(!isValidInstitution) {
-    throw new Error ('Invalid data for create Institution')
-  }
-
-  return {name, description, web}
-}
 
 function createJob (date: string, institution: Institution, charge: string, achivements: string[]) : Job {
   const isValidDate = date.length > 4
@@ -23,7 +11,7 @@ function createJob (date: string, institution: Institution, charge: string, achi
 
   const isValidJob = isValidDate  && isValidCharge && isValidAchivements
   if(!isValidJob) {
-    throw new Error ('Invalid data for create Job')
+    throw makeError('INVALID_DATA', 'Invalid data for create Job')
   }
 
   return {date, institution, charge, achivements}

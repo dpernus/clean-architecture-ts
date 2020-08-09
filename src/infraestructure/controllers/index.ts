@@ -7,6 +7,8 @@ import { makeJobEliminator } from "../../domain/application/deleteJob";
 
 import { makeCreateUserController, makeGetUserByIdController } from './user.controller'
 import { makeAddJobController, makeDeleteJobController } from './job.controller'
+import { makeEducationAdder } from "../../domain/application/addEducation";
+import { makeAddEducationController } from "./education.controller";
  
 const inMemoryUserRepository = makeInMemoryUserRepository();
 
@@ -21,3 +23,6 @@ export const addJobController = makeAddJobController(addJob)
 
 const deleteJob = makeJobEliminator(inMemoryUserRepository)
 export const deleteJobController = makeDeleteJobController(deleteJob)
+
+const addEducation = makeEducationAdder(inMemoryUserRepository)
+export const addEducationController = makeAddEducationController(addEducation)

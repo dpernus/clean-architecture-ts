@@ -3,7 +3,6 @@ import { deleteJobController } from "../../controllers";
 
 export default function deleteJobRoute (router : Router) {
   router.delete('/user/:id/job/:jobId', ctx => {
-    console.log('entre al delete')
     const { id: userId, jobId } = ctx.params
     const { response, status } = deleteJobController({userId, date: jobId})
     ctx.body = response

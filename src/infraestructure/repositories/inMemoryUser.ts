@@ -14,8 +14,8 @@ export function makeInMemoryUserRepository(): UserRepository {
     const dbUser = persistedUsers.get(userId.toString())
     
     if (dbUser !== undefined) {
-      const {personalData: {age, name, email}, summary, keyTerms, id, workExperience} = JSON.parse(dbUser);
-      return createUser(age, name, email, summary, keyTerms, workExperience, id);
+      const {personalData: {age, name, email}, summary, keyTerms, workExperience, education, id} = JSON.parse(dbUser);
+      return createUser(age, name, email, summary, keyTerms, workExperience, education, id);
     }
     
     return null
@@ -24,7 +24,6 @@ export function makeInMemoryUserRepository(): UserRepository {
     const updateUser = (user: User) => {
       const userId = user.id.toString();
       persistedUsers.set(userId, JSON.stringify(user));
-      console.log('Update user', persistedUsers.size);
     }
 
   return { addUser, getUser, updateUser };
