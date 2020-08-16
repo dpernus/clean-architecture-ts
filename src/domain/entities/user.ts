@@ -20,7 +20,7 @@ export interface Course {
   description?: string[]
 }
 
-type Skills = Record<string, string[]>
+export type Skills = Record<string, string[]>
 
 export interface User {
   id: number
@@ -36,7 +36,7 @@ export interface User {
   keyTerms: string[]
   workExperience: Job[]
   education: Course[]
-  skills?: Skills
+  skills: Skills
 }
 
 export function createInstitution (name: string, description: string, web: string | undefined) : Institution {
@@ -60,6 +60,7 @@ export function createUser(
   keyTerms: string[],
   workExperience: Job[] = [],
   education: Course[] = [],
+  skills: Skills = {},
   id: number | undefined = undefined
 ): User {
   const isValidUser = (age: number, name: string, email: string, summary: string, keyTerms: string[]) =>
@@ -78,7 +79,7 @@ export function createUser(
     throw new Error("Invalid User values");
   }
   const personalData = {age, name, email}
-  return { id: id || generateId(), personalData, summary, keyTerms, workExperience, education };
+  return { id: id || generateId(), personalData, summary, keyTerms, workExperience, education, skills };
 }
 
 // DOMAIN WITH CLASS

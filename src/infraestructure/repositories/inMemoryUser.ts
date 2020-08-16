@@ -14,8 +14,8 @@ export function makeInMemoryUserRepository(): UserRepository {
     const dbUser = persistedUsers.get(userId.toString())
     
     if (dbUser !== undefined) {
-      const {personalData: {age, name, email}, summary, keyTerms, workExperience, education, id} = JSON.parse(dbUser);
-      return createUser(age, name, email, summary, keyTerms, workExperience, education, id);
+      const {personalData: {age, name, email}, summary, keyTerms, workExperience, education, skills, id} = JSON.parse(dbUser);
+      return createUser(age, name, email, summary, keyTerms, workExperience, education, skills, id);
     }
     
     return null
