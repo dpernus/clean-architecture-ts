@@ -27,7 +27,7 @@ export function makeEducationAdder (userRepository: UserRepository) : EducationA
     const institution = createInstitution(institutionName, institutionDescription, institutionWeb)
     const course = createCourse(date, title, institution, description)
 
-    user.education?.push(course)
+    user.education.push(course)
     userRepository.updateUser(user)
     return user
   }

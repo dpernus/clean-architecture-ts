@@ -35,7 +35,7 @@ export interface User {
   summary: string
   keyTerms: string[]
   workExperience: Job[]
-  education?: Course[]
+  education: Course[]
   skills?: Skills
 }
 

@@ -25,7 +25,7 @@ export function makeGetUserByIdController (getUserById: GetUserById) : Controlle
       const user = getUserById(parseInt(id, 10));
       return { response: user, status: 200}
     } catch({ message, code }) {
-      return { response: { message }, status: code === 'USER_NOT_FOUND' ? 404 : 500}
+      return { response: { code, message }, status: code === 'USER_NOT_FOUND' ? 404 : 500}
     }
   }
 }

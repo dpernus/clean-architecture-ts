@@ -3,12 +3,13 @@ import { makeInMemoryUserRepository } from "./../repositories/inMemoryUser";
 import { makeUserCreator } from "../../domain/application/createUser";
 import { makeGetUserById } from "./../../domain/application/getUserById";
 import { makeJobAdder } from "../../domain/application/addJob";
-import { makeJobEliminator } from "../../domain/application/deleteJob";
+import { makeJobRemover } from "../../domain/application/removeJob";
 
 import { makeCreateUserController, makeGetUserByIdController } from './user.controller'
-import { makeAddJobController, makeDeleteJobController } from './job.controller'
-import { makeEducationAdder } from "../../domain/application/addEducation";
-import { makeAddEducationController } from "./education.controller";
+import { makeAddJobController, makeRemoveJobController } from './job.controller'
+import { makeEducationAdder } from "../../domain/application/addEducationEvent";
+import { makeAddEducationController, makeRemoveEducationController } from "./education.controller";
+import { makeEducationRemover } from "../../domain/application/removeEducationEvent";
  
 const inMemoryUserRepository = makeInMemoryUserRepository();
 
@@ -21,8 +22,11 @@ export const getUserByIdController = makeGetUserByIdController(getUserById)
 const addJob = makeJobAdder(inMemoryUserRepository);
 export const addJobController = makeAddJobController(addJob)
 
-const deleteJob = makeJobEliminator(inMemoryUserRepository)
-export const deleteJobController = makeDeleteJobController(deleteJob)
+const removeJob = makeJobRemover(inMemoryUserRepository)
+export const removeJobController = makeRemoveJobController(removeJob)
 
 const addEducation = makeEducationAdder(inMemoryUserRepository)
 export const addEducationController = makeAddEducationController(addEducation)
+
+const removeEducation = makeEducationRemover(inMemoryUserRepository)
+export const removeEducationController = makeRemoveEducationController(removeEducation)

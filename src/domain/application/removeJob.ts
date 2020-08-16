@@ -2,9 +2,9 @@ import { UserRepository } from "../interfaces";
 import { User } from "../entities/user";
 import { makeError } from "../../utils/errors";
 
-export type JobEliminator = (userId: number, date: string) => User
+export type JobRemover = (userId: number, date: string) => User
 
-export function makeJobEliminator (userRepository: UserRepository) : JobEliminator {
+export function makeJobRemover (userRepository: UserRepository) : JobRemover {
   return (userId, date) => {
     const user = userRepository.getUser(userId)
 

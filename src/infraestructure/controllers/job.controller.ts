@@ -1,7 +1,7 @@
 import { JobAdder } from '../../domain/application/addJob'
 import { User } from '../../domain/entities/user'
 import { Controller } from './commons'
-import { JobEliminator } from '../../domain/application/deleteJob'
+import { JobRemover } from '../../domain/application/removeJob'
 
 export interface JobInfo {
   date: string
@@ -25,10 +25,10 @@ export function makeAddJobController (addJob: JobAdder) : Controller <{userId: n
   }
 }
 
-export function makeDeleteJobController (deleteJob: JobEliminator) : Controller <{userId: number, date: string}, User>{
+export function makeRemoveJobController (removeJob: JobRemover) : Controller <{userId: number, date: string}, User>{
   return ({userId, date}) => {
     try{
-      const userWithoutJob = deleteJob(userId, date)
+      const userWithoutJob = removeJob(userId, date)
       return { response: userWithoutJob, status: 200 }
     } catch ({ message, code }) {
       return {response: { code, message }, status: code === 'JOB_NOT_FOUND' ? 404 : 500}
