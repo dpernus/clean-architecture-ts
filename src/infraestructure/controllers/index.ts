@@ -11,7 +11,8 @@ import { makeEducationAdder } from "../../domain/application/addEducationEvent";
 import { makeAddEducationController, makeRemoveEducationController } from "./education.controller";
 import { makeEducationRemover } from "../../domain/application/removeEducationEvent";
 import { makeSkillAdder } from "../../domain/application/addSkill";
-import { makeAddSkillController } from "./skill.controller";
+import { makeAddSkillController, makeRemoveSkillController } from "./skill.controller";
+import { makeSkillsRemover } from "../../domain/application/removeSkills";
  
 const inMemoryUserRepository = makeInMemoryUserRepository();
 
@@ -35,3 +36,6 @@ export const removeEducationController = makeRemoveEducationController(removeEdu
 
 const addSkill = makeSkillAdder(inMemoryUserRepository)
 export const addSkillController = makeAddSkillController(addSkill)
+
+const removeSkill = makeSkillsRemover(inMemoryUserRepository)
+export const removeSkillController = makeRemoveSkillController(removeSkill)

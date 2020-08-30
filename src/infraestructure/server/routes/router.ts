@@ -6,6 +6,7 @@ import deleteJobRoute from './deleteJob.route';
 import addEducationRoute from './addEducation.route';
 import deleteEducationEventRoute from './deleteEducationEvent.route';
 import addSkillRoute from './addSkill.route'
+import deleteSkillsRoute from './deleteSkills.route';
 
 const router = new Router();
 
@@ -24,5 +25,6 @@ addEducationRoute(router)
 deleteEducationEventRoute(router)
 
 addSkillRoute(router)
+deleteSkillsRoute(router)
 
 export default router;
