@@ -1,16 +1,16 @@
-import Router from 'koa-router';
+import Router from 'koa-router'
 import createUserRoute from './createUser.route'
-import addJobRoute from './addJob.route';
-import getUserRoute from './getUser.route';
-import deleteJobRoute from './deleteJob.route';
-import addEducationRoute from './addEducation.route';
-import deleteEducationEventRoute from './deleteEducationEvent.route';
+import addJobRoute from './addJob.route'
+import getUserRoute from './getUser.route'
+import deleteJobRoute from './deleteJob.route'
+import addEducationRoute from './addEducation.route'
+import deleteEducationEventRoute from './deleteEducationEvent.route'
 import addSkillRoute from './addSkill.route'
-import deleteSkillsRoute from './deleteSkills.route';
+import deleteSkillsRoute from './deleteSkills.route'
 
-const router = new Router();
+const router = new Router()
 
-router.get('/health', ctx => {
+router.get('/health', (ctx) => {
   ctx.body = 'OK'
   ctx.status = 200
 })
@@ -27,4 +27,4 @@ deleteEducationEventRoute(router)
 addSkillRoute(router)
 deleteSkillsRoute(router)
 
-export default router;
+export default router

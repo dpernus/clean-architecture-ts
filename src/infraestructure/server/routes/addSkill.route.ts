@@ -1,17 +1,17 @@
-import Router from "koa-router";
-import Joi, { number } from "@hapi/joi";
-import { addSkillController } from "../../controllers";
+import Router from 'koa-router'
+import Joi from '@hapi/joi'
+import { addSkillController } from '../../controllers'
 
 const skillsSchema = Joi.object({
   userId: Joi.number().required(),
-  skills: Joi.object().required()
+  skills: Joi.object().required(),
 })
 
-export default function addSkillRoute (router: Router) {
-  router.post('/user/skills', ctx => {
+export default function addSkillRoute(router: Router): void {
+  router.post('/user/skills', (ctx) => {
     const validation = skillsSchema.validate(ctx.request.body)
 
-    if(validation.error !== undefined) {
+    if (validation.error !== undefined) {
       const message = `Request for add skills fail. ${validation.error.message}`
       console.log(message)
       ctx.status = 400
@@ -19,7 +19,7 @@ export default function addSkillRoute (router: Router) {
       return
     }
 
-    const {response, status} = addSkillController(validation.value)
+    const { response, status } = addSkillController(validation.value)
     ctx.body = response
     ctx.status = status
   })

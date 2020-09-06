@@ -1,22 +1,22 @@
-import Router from "koa-router";
+import Router from 'koa-router'
 import Joi from '@hapi/joi'
-import { createUserController } from "../../controllers";
-import { UserInput } from "../../controllers/user.controller";
+import { createUserController } from '../../controllers'
+import { UserInput } from '../../controllers/user.controller'
 
-const userSchema = Joi.object <UserInput> ({
+const userSchema = Joi.object<UserInput>({
   age: Joi.number().integer().required(),
   name: Joi.string().required(),
   email: Joi.string().required(),
   summary: Joi.string().required(),
-  keyTerms: Joi.array().items(Joi.string()).required()
+  keyTerms: Joi.array().items(Joi.string()).required(),
 })
 
-export default function createUserRoute (router: Router) {
-  router.post('/user', ctx => {
-    const userInfo = ctx.request.body;
+export default function createUserRoute(router: Router): void {
+  router.post('/user', (ctx) => {
+    const userInfo = ctx.request.body
 
     const validation = userSchema.validate(userInfo)
-    if(validation.error !== undefined) {
+    if (validation.error !== undefined) {
       const message = `Request for create user fail. Field ${validation.error?.message}`
       console.log(message)
       ctx.status = 400
@@ -24,10 +24,9 @@ export default function createUserRoute (router: Router) {
       return
     }
 
-    const { response, status } = createUserController(userInfo);
-    console.log("UserId:", response);
+    const { response, status } = createUserController(userInfo)
+    console.log('UserId:', response)
     ctx.status = status
     ctx.body = response
   })
 }
-

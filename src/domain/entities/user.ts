@@ -1,4 +1,4 @@
-import { makeError } from "../../utils/errors"
+import { makeError } from '../../utils/errors'
 
 export interface Institution {
   name: string
@@ -39,16 +39,16 @@ export interface User {
   skills: Skills
 }
 
-export function createInstitution (name: string, description: string, web: string | undefined) : Institution {
+export function createInstitution(name: string, description: string, web: string | undefined): Institution {
   const isValidName = name !== ''
-  const isValidDescription =  description.length > 10
+  const isValidDescription = description.length > 10
 
   const isValidInstitution = isValidName && isValidDescription
-  if(!isValidInstitution) {
+  if (!isValidInstitution) {
     throw makeError('INVALID_DATA', 'Invalid data for create Institution')
   }
 
-  return {name, description, web}
+  return { name, description, web }
 }
 
 //TODO: add optional user fields and validation for those case
@@ -61,25 +61,28 @@ export function createUser(
   workExperience: Job[] = [],
   education: Course[] = [],
   skills: Skills = {},
-  id: number | undefined = undefined
+  id: number | undefined = undefined,
 ): User {
   const isValidUser = (age: number, name: string, email: string, summary: string, keyTerms: string[]) =>
-    isValidAge(age) && isValidName(name) && isValidEmail(email) && isValidSummary(summary) && isValidKeyTerms(keyTerms);
+    isValidAge(age) && isValidName(name) && isValidEmail(email) && isValidSummary(summary) && isValidKeyTerms(keyTerms)
 
-  const isValidAge = (age: number): boolean => age > 0;
-  const isValidName = (name: string): boolean => name !== "";
-  const isValidEmail = (email: string): boolean => email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) !== null
+  const isValidAge = (age: number): boolean => age > 0
+  const isValidName = (name: string): boolean => name !== ''
+  const isValidEmail = (email: string): boolean =>
+    email.match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+    ) !== null
 
-  const isValidSummary = (summary: string): boolean => summary.split(' ').length > 50;
+  const isValidSummary = (summary: string): boolean => summary.split(' ').length > 50
   const isValidKeyTerms = (keyTerms: string[]): boolean => keyTerms.length > 0
 
-  const generateId = (): number => Math.floor(Math.random() * 100);
+  const generateId = (): number => Math.floor(Math.random() * 100)
 
   if (!isValidUser(age, name, email, summary, keyTerms)) {
-    throw new Error("Invalid User values");
+    throw makeError('INVALID_DATA', 'Invalid data for create user')
   }
-  const personalData = {age, name, email}
-  return { id: id || generateId(), personalData, summary, keyTerms, workExperience, education, skills };
+  const personalData = { age, name, email }
+  return { id: id || generateId(), personalData, summary, keyTerms, workExperience, education, skills }
 }
 
 // DOMAIN WITH CLASS

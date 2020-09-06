@@ -1,7 +1,7 @@
-import { User } from "./entities/user";
+import { User } from './entities/user'
 
 export interface UserRepository {
-  addUser: (u: User) => number;
-  getUser: (userId: number) => User | null;
-  updateUser: (user: User) => void;
+  addUser: (u: User) => number
+  getUser: (userId: number) => User | null
+  updateUser: (user: User) => void
 }

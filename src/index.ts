@@ -1,4 +1,4 @@
-import { runServer }  from './infraestructure/server'
+import { runServer } from './infraestructure/server'
 
-const config = {port: 3000} 
+const config = { port: 3000 }
 runServer(config)
