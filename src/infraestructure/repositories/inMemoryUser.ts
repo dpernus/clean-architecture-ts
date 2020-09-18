@@ -4,13 +4,13 @@ import { User, createUser } from '../../domain/entities/user'
 export function makeInMemoryUserRepository(): UserRepository {
   const persistedUsers = new Map<string, string>()
 
-  const addUser = (user: User) => {
+  const addUser = (user: User): Promise<number> => {
     persistedUsers.set(user.id.toString(), JSON.stringify(user))
     console.log(persistedUsers.size)
-    return user.id
+    return Promise.resolve(user.id)
   }
 
-  const getUser = (userId: number): User | null => {
+  const getUser = (userId: number): Promise<User | null> => {
     const dbUser = persistedUsers.get(userId.toString())
 
     if (dbUser !== undefined) {
@@ -23,15 +23,16 @@ export function makeInMemoryUserRepository(): UserRepository {
         skills,
         id,
       } = JSON.parse(dbUser)
-      return createUser(age, name, email, summary, keyTerms, workExperience, education, skills, id)
+      return Promise.resolve(createUser(age, name, email, summary, keyTerms, workExperience, education, skills, id))
     }
 
-    return null
+    return Promise.resolve(null)
   }
 
-  const updateUser = (user: User) => {
+  const updateUser = (user: User): Promise<void> => {
     const userId = user.id.toString()
     persistedUsers.set(userId, JSON.stringify(user))
+    return Promise.resolve()
   }
 
   return { addUser, getUser, updateUser }

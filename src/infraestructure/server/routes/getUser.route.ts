@@ -2,9 +2,9 @@ import Router from 'koa-router'
 import { getUserByIdController } from '../../controllers'
 
 export default function getUserRoute(router: Router): void {
-  router.get('/user/:id', (ctx) => {
+  router.get('/user/:id', async (ctx) => {
     const { id } = ctx.params
-    const { response, status } = getUserByIdController(id)
+    const { response, status } = await getUserByIdController(id)
     console.log('User', response)
 
     ctx.response.status = status

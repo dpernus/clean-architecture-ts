@@ -10,7 +10,7 @@ export type JobAdder = (
   institutionWeb: string | undefined,
   charge: string,
   achivements: string[],
-) => User
+) => Promise<User>
 
 function createJob(date: string, institution: Institution, charge: string, achivements: string[]): Job {
   const isValidDate = date.length > 4
@@ -26,8 +26,8 @@ function createJob(date: string, institution: Institution, charge: string, achiv
 }
 
 export function makeJobAdder(userRepository: UserRepository): JobAdder {
-  return (userId, date, institutionName, institutionDescription, institutionWeb, charge, achivements) => {
-    const user = userRepository.getUser(userId)
+  return async (userId, date, institutionName, institutionDescription, institutionWeb, charge, achivements) => {
+    const user = await userRepository.getUser(userId)
 
     if (user === null) {
       throw makeError('USER_NOT_FOUND', `User with id ${userId} not found`)
@@ -37,7 +37,7 @@ export function makeJobAdder(userRepository: UserRepository): JobAdder {
     const job = createJob(date, institution, charge, achivements)
 
     user.workExperience.push(job)
-    userRepository.updateUser(user)
+    await userRepository.updateUser(user)
     return user
   }
 }

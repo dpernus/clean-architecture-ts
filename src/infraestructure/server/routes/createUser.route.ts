@@ -12,7 +12,7 @@ const userSchema = Joi.object<UserInput>({
 })
 
 export default function createUserRoute(router: Router): void {
-  router.post('/user', (ctx) => {
+  router.post('/user', async (ctx) => {
     const userInfo = ctx.request.body
 
     const validation = userSchema.validate(userInfo)
@@ -24,7 +24,7 @@ export default function createUserRoute(router: Router): void {
       return
     }
 
-    const { response, status } = createUserController(userInfo)
+    const { response, status } = await createUserController(userInfo)
     console.log('UserId:', response)
     ctx.status = status
     ctx.body = response

@@ -1,7 +1,7 @@
 import { User } from './entities/user'
 
 export interface UserRepository {
-  addUser: (u: User) => number
-  getUser: (userId: number) => User | null
-  updateUser: (user: User) => void
+  addUser: (u: User) => Promise<number>
+  getUser: (userId: number) => Promise<User | null>
+  updateUser: (user: User) => Promise<void>
 }

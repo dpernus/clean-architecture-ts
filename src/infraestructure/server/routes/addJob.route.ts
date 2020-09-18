@@ -16,7 +16,7 @@ const jobSchema = Joi.object<{ userId: number; jobInfo: JobInfo }>({
 })
 
 export default function addJobRoute(router: Router): void {
-  router.post('/user/job', (ctx) => {
+  router.post('/user/job', async (ctx) => {
     const validation = jobSchema.validate(ctx.request.body)
 
     if (validation.error !== undefined) {
@@ -27,7 +27,7 @@ export default function addJobRoute(router: Router): void {
       return
     }
 
-    const { response, status } = addJobController(validation.value)
+    const { response, status } = await addJobController(validation.value)
 
     ctx.body = response
     ctx.status = status

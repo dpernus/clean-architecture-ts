@@ -2,11 +2,11 @@ import { UserRepository } from '../interfaces'
 import { User } from '../entities/user'
 import { makeError } from '../../utils/errors'
 
-export type EducationRemover = (userId: number, date: string) => User
+export type EducationRemover = (userId: number, date: string) => Promise<User>
 
 export function makeEducationRemover(userRepository: UserRepository): EducationRemover {
-  return (userId, date) => {
-    const user = userRepository.getUser(userId)
+  return async (userId, date) => {
+    const user = await userRepository.getUser(userId)
 
     if (user === null) {
       throw makeError('USER_NOT_FOUND', `User with id ${userId} not found`)
@@ -19,7 +19,7 @@ export function makeEducationRemover(userRepository: UserRepository): EducationR
     }
 
     user.education.splice(courseIndex, 1)
-    userRepository.updateUser(user)
+    await userRepository.updateUser(user)
     return user
   }
 }

@@ -1,12 +1,18 @@
 import { UserRepository } from '../interfaces'
 import { createUser } from '../entities/user'
 
-export type UserCreator = (age: number, name: string, email: string, summary: string, keyTerms: string[]) => number
+export type UserCreator = (
+  age: number,
+  name: string,
+  email: string,
+  summary: string,
+  keyTerms: string[],
+) => Promise<number>
 
 export function makeUserCreator(userRepository: UserRepository): UserCreator {
-  return (age, name, email, summary, keyTerms) => {
+  return async (age, name, email, summary, keyTerms) => {
     const user = createUser(age, name, email, summary, keyTerms)
-    const userId = userRepository.addUser(user)
+    const userId = await userRepository.addUser(user)
     return userId
   }
 }

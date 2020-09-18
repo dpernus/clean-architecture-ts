@@ -2,11 +2,11 @@ import { UserRepository } from '../interfaces'
 import { User, Skills } from '../entities/user'
 import { makeError } from '../../utils/errors'
 
-export type SkillsRemover = (userId: number, skills: Skills) => User
+export type SkillsRemover = (userId: number, skills: Skills) => Promise<User>
 
 export function makeSkillsRemover(userRepository: UserRepository): SkillsRemover {
-  return (userId, skillsToDelete) => {
-    const user = userRepository.getUser(userId)
+  return async (userId, skillsToDelete) => {
+    const user = await userRepository.getUser(userId)
 
     if (user === null) {
       throw makeError('USER_NOT_FOUND', `User with id ${userId} not found`)
@@ -20,7 +20,7 @@ export function makeSkillsRemover(userRepository: UserRepository): SkillsRemover
       user.skills[skillName] = user.skills[skillName].filter((skill) => skillsToDelete[skillName].indexOf(skill) === -1)
     })
 
-    userRepository.updateUser(user)
+    await userRepository.updateUser(user)
     return user
   }
 }

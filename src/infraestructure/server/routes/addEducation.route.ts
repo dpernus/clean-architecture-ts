@@ -16,7 +16,7 @@ const educationSchema = Joi.object<{ userId: number; educationInfo: EducationInf
 })
 
 export default function addEducationRoute(router: Router): void {
-  router.post('/user/education', (ctx) => {
+  router.post('/user/education', async (ctx) => {
     const validation = educationSchema.validate(ctx.request.body)
 
     if (validation.error !== undefined) {
@@ -27,7 +27,7 @@ export default function addEducationRoute(router: Router): void {
       return
     }
 
-    const { response, status } = addEducationController(validation.value)
+    const { response, status } = await addEducationController(validation.value)
     ctx.body = response
     ctx.status = status
   })

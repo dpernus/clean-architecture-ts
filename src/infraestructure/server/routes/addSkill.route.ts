@@ -8,7 +8,7 @@ const skillsSchema = Joi.object({
 })
 
 export default function addSkillRoute(router: Router): void {
-  router.post('/user/skills', (ctx) => {
+  router.post('/user/skills', async (ctx) => {
     const validation = skillsSchema.validate(ctx.request.body)
 
     if (validation.error !== undefined) {
@@ -19,7 +19,7 @@ export default function addSkillRoute(router: Router): void {
       return
     }
 
-    const { response, status } = addSkillController(validation.value)
+    const { response, status } = await addSkillController(validation.value)
     ctx.body = response
     ctx.status = status
   })

@@ -12,17 +12,17 @@ export interface UserInput {
 }
 
 export function makeCreateUserController(userCreator: UserCreator): Controller<UserInput, { userId: number }> {
-  return (userInfo) => {
+  return async (userInfo) => {
     const { age, name, email, summary, keyTerms } = userInfo
-    const userId = userCreator(age, name, email, summary, keyTerms)
+    const userId = await userCreator(age, name, email, summary, keyTerms)
     return { response: { userId }, status: 200 }
   }
 }
 
 export function makeGetUserByIdController(getUserById: GetUserById): Controller<string, User> {
-  return (id) => {
+  return async (id) => {
     try {
-      const user = getUserById(parseInt(id, 10))
+      const user = await getUserById(parseInt(id, 10))
       return { response: user, status: 200 }
     } catch ({ message, code }) {
       return { response: { code, message }, status: code === 'USER_NOT_FOUND' ? 404 : 500 }

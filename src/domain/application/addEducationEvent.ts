@@ -10,7 +10,7 @@ export type EducationAdder = (
   institutionDescription: string,
   institutionWeb: string | undefined,
   description: string[] | undefined,
-) => User
+) => Promise<User>
 
 function createCourse(
   date: string,
@@ -30,8 +30,8 @@ function createCourse(
 }
 
 export function makeEducationAdder(userRepository: UserRepository): EducationAdder {
-  return (userId, date, title, institutionName, institutionDescription, institutionWeb, description) => {
-    const user = userRepository.getUser(userId)
+  return async (userId, date, title, institutionName, institutionDescription, institutionWeb, description) => {
+    const user = await userRepository.getUser(userId)
 
     if (user === null) {
       throw makeError('USER_NOT_FOUND', `User with id ${userId} not found`)
@@ -41,7 +41,7 @@ export function makeEducationAdder(userRepository: UserRepository): EducationAdd
     const course = createCourse(date, title, institution, description)
 
     user.education.push(course)
-    userRepository.updateUser(user)
+    await userRepository.updateUser(user)
     return user
   }
 }

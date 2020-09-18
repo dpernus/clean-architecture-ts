@@ -13,11 +13,11 @@ export interface JobInfo {
 }
 
 export function makeAddJobController(addJob: JobAdder): Controller<{ userId: number; jobInfo: JobInfo }, User> {
-  return ({ userId, jobInfo }) => {
+  return async ({ userId, jobInfo }) => {
     const { date, institutionName, institutionDescription, institutionWeb, charge, achivements } = jobInfo
 
     try {
-      const userWithJob = addJob(
+      const userWithJob = await addJob(
         userId,
         date,
         institutionName,
@@ -34,9 +34,9 @@ export function makeAddJobController(addJob: JobAdder): Controller<{ userId: num
 }
 
 export function makeRemoveJobController(removeJob: JobRemover): Controller<{ userId: number; date: string }, User> {
-  return ({ userId, date }) => {
+  return async ({ userId, date }) => {
     try {
-      const userWithoutJob = removeJob(userId, date)
+      const userWithoutJob = await removeJob(userId, date)
       return { response: userWithoutJob, status: 200 }
     } catch ({ message, code }) {
       return { response: { code, message }, status: code === 'JOB_NOT_FOUND' ? 404 : 500 }

@@ -15,11 +15,11 @@ export interface EducationInfo {
 export function makeAddEducationController(
   addEducationEvent: EducationAdder,
 ): Controller<{ userId: number; educationInfo: EducationInfo }, User> {
-  return ({ userId, educationInfo }) => {
+  return async ({ userId, educationInfo }) => {
     const { date, title, institutionName, institutionDescription, institutionWeb, description } = educationInfo
 
     try {
-      const userWithEducation = addEducationEvent(
+      const userWithEducation = await addEducationEvent(
         userId,
         date,
         title,
@@ -38,9 +38,9 @@ export function makeAddEducationController(
 export function makeRemoveEducationController(
   removeEducacionEvent: EducationRemover,
 ): Controller<{ userId: number; courseDate: string }, User> {
-  return ({ userId, courseDate }) => {
+  return async ({ userId, courseDate }) => {
     try {
-      const userWithoutCourse = removeEducacionEvent(userId, courseDate)
+      const userWithoutCourse = await removeEducacionEvent(userId, courseDate)
       return { response: userWithoutCourse, status: 200 }
     } catch ({ message, code }) {
       return { response: { code, message }, status: code.indexOf('_NOT_FOUND') !== -1 ? 404 : 500 }

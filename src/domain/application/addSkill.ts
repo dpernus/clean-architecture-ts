@@ -2,11 +2,11 @@ import { UserRepository } from '../interfaces'
 import { User, Skills } from '../entities/user'
 import { makeError } from '../../utils/errors'
 
-export type SkillAdder = (userId: number, skills: Skills) => User
+export type SkillAdder = (userId: number, skills: Skills) => Promise<User>
 
 export function makeSkillAdder(userRepository: UserRepository): SkillAdder {
-  return (userId, skills) => {
-    const user = userRepository.getUser(userId)
+  return async (userId, skills) => {
+    const user = await userRepository.getUser(userId)
 
     if (user === null) {
       throw makeError('USER_NOT_FOUND', `User with id ${userId} not found`)
@@ -19,7 +19,7 @@ export function makeSkillAdder(userRepository: UserRepository): SkillAdder {
           : skills[skillName]
     })
 
-    userRepository.updateUser(user)
+    await userRepository.updateUser(user)
     return user
   }
 }

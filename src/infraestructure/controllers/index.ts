@@ -1,4 +1,5 @@
-import { makeInMemoryUserRepository } from './../repositories/inMemoryUser'
+//import { makeInMemoryUserRepository } from './../repositories/inMemoryUser'
+import makeMongoUserRepository from '../repositories/mongo'
 
 import { makeUserCreator } from '../../domain/application/createUser'
 import { makeGetUserById } from './../../domain/application/getUserById'
@@ -14,28 +15,29 @@ import { makeSkillAdder } from '../../domain/application/addSkill'
 import { makeAddSkillController, makeRemoveSkillController } from './skill.controller'
 import { makeSkillsRemover } from '../../domain/application/removeSkills'
 
-const inMemoryUserRepository = makeInMemoryUserRepository()
+//const inMemoryUserRepository = makeInMemoryUserRepository()
+const mongoDBUserRepository = makeMongoUserRepository()
 
-const userCreator = makeUserCreator(inMemoryUserRepository)
+const userCreator = makeUserCreator(mongoDBUserRepository)
 export const createUserController = makeCreateUserController(userCreator)
 
-const getUserById = makeGetUserById(inMemoryUserRepository)
+const getUserById = makeGetUserById(mongoDBUserRepository)
 export const getUserByIdController = makeGetUserByIdController(getUserById)
 
-const addJob = makeJobAdder(inMemoryUserRepository)
+const addJob = makeJobAdder(mongoDBUserRepository)
 export const addJobController = makeAddJobController(addJob)
 
-const removeJob = makeJobRemover(inMemoryUserRepository)
+const removeJob = makeJobRemover(mongoDBUserRepository)
 export const removeJobController = makeRemoveJobController(removeJob)
 
-const addEducation = makeEducationAdder(inMemoryUserRepository)
+const addEducation = makeEducationAdder(mongoDBUserRepository)
 export const addEducationController = makeAddEducationController(addEducation)
 
-const removeEducation = makeEducationRemover(inMemoryUserRepository)
+const removeEducation = makeEducationRemover(mongoDBUserRepository)
 export const removeEducationController = makeRemoveEducationController(removeEducation)
 
-const addSkill = makeSkillAdder(inMemoryUserRepository)
+const addSkill = makeSkillAdder(mongoDBUserRepository)
 export const addSkillController = makeAddSkillController(addSkill)
 
-const removeSkill = makeSkillsRemover(inMemoryUserRepository)
+const removeSkill = makeSkillsRemover(mongoDBUserRepository)
 export const removeSkillController = makeRemoveSkillController(removeSkill)
