@@ -81,7 +81,7 @@ export default function makeMongoUserRepository(): UserRepository {
         education: [...user.education],
         skills: { ...user.skills },
       }
-      await UserModel.update({ id: user.id }, userUpdated)
+      await UserModel.updateOne({ id: user.id }, userUpdated)
     } catch (error) {
       throw makeError('DB_UPDATE_USER', `${error.message}`)
     }

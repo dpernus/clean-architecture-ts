@@ -51,7 +51,6 @@ export function createInstitution(name: string, description: string, web: string
   return { name, description, web }
 }
 
-//TODO: add optional user fields and validation for those case
 export function createUser(
   age: number,
   name: string,

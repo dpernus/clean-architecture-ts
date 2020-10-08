@@ -30,7 +30,7 @@ const InstitutionSchema = new Schema({
 
 const JobSchema = new Schema({
   date: {
-    type: Date,
+    type: String,
     required: true,
   },
   title: {
@@ -38,12 +38,12 @@ const JobSchema = new Schema({
     required: true,
   },
   institution: InstitutionSchema,
-  description: [String],
+  achivements: [String],
 })
 
 const CourseSchema = new Schema({
   date: {
-    type: Date,
+    type: String,
     required: true,
   },
   title: {
