@@ -12,7 +12,10 @@ export function makeJobRemover(userRepository: UserRepository): JobRemover {
       throw makeError('USER_NOT_FOUND', `User with id ${userId} not found`)
     }
 
-    const jobIndex = user.workExperience.findIndex((job) => job.date.substr(0, 4) === date)
+    const jobIndex = user.workExperience.findIndex((job) => {
+      const jobYear = job.date.indexOf(',') !== -1 ? job.date.split(',')[1].substr(1, 4) : job.date.substr(0, 4)
+      return jobYear === date
+    })
 
     if (jobIndex === -1) {
       throw makeError('JOB_NOT_FOUND', `There is no job for date ${date}`)

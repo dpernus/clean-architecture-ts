@@ -40,7 +40,7 @@ const JobSchema = new Schema(
       type: String,
       required: true,
     },
-    title: {
+    charge: {
       type: String,
       required: true,
     },
