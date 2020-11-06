@@ -5,7 +5,6 @@ export default function getUserRoute(router: Router): void {
   router.get('/user/:id', async (ctx) => {
     const { id } = ctx.params
     const { response, status } = await getUserByIdController(id)
-    console.log('User', response)
 
     ctx.response.status = status
     ctx.response.body = response

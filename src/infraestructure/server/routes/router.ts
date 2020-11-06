@@ -2,6 +2,7 @@ import Router from 'koa-router'
 import createUserRoute from './createUser.route'
 import addJobRoute from './addJob.route'
 import getUserRoute from './getUser.route'
+import getUsersRoute from './getUsers.route'
 import deleteJobRoute from './deleteJob.route'
 import addEducationRoute from './addEducation.route'
 import deleteEducationEventRoute from './deleteEducationEvent.route'
@@ -17,6 +18,7 @@ router.get('/health', (ctx) => {
 
 createUserRoute(router)
 getUserRoute(router)
+getUsersRoute(router)
 
 addJobRoute(router)
 deleteJobRoute(router)

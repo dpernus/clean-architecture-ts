@@ -69,6 +69,32 @@ export default function makeMongoUserRepository(): UserRepository {
     }
   }
 
+  const getUsers = async (): Promise<User[] | []> => {
+    try {
+      const dbUsers = await UserModel.find({})
+
+      if (dbUsers.length > 0) {
+        const users = dbUsers.map((user) => {
+          const {
+            personalData: { age, name, email },
+            summary,
+            keyTerms,
+            workExperience,
+            education,
+            skills,
+            id,
+          } = user.toJSON()
+          return createUser(age, name, email, summary, keyTerms, workExperience, education, skills, id)
+        })
+        return users
+      }
+
+      return []
+    } catch (error) {
+      throw makeError('DB_GET_USER', `${error.message}`)
+    }
+  }
+
   //TODO: Fix date in string to date for job and course
   const updateUser = async (user: User) => {
     try {
@@ -86,5 +112,5 @@ export default function makeMongoUserRepository(): UserRepository {
       throw makeError('DB_UPDATE_USER', `${error.message}`)
     }
   }
-  return { addUser, getUser, updateUser }
+  return { addUser, getUser, getUsers, updateUser }
 }

@@ -2,6 +2,7 @@ import { UserCreator } from '../../domain/application/createUser'
 import { User } from '../../domain/entities/user'
 import { GetUserById } from '../../domain/application/getUserById'
 import { Controller } from './commons'
+import { GetUsers } from '../../domain/application/getUsers'
 
 export interface UserInput {
   age: number
@@ -26,6 +27,17 @@ export function makeGetUserByIdController(getUserById: GetUserById): Controller<
       return { response: user, status: 200 }
     } catch ({ message, code }) {
       return { response: { code, message }, status: code === 'USER_NOT_FOUND' ? 404 : 500 }
+    }
+  }
+}
+
+export function makeGetUsersController(getUsers: GetUsers): Controller<void, User[]> {
+  return async () => {
+    try {
+      const users = await getUsers()
+      return { response: users, status: 200 }
+    } catch ({ message, code }) {
+      return { response: { code, message }, status: code === 'USERS_NOT_FOUND' ? 404 : 500 }
     }
   }
 }

@@ -3,10 +3,11 @@ import makeMongoUserRepository from '../repositories/mongo'
 
 import { makeUserCreator } from '../../domain/application/createUser'
 import { makeGetUserById } from './../../domain/application/getUserById'
+import { makeGetUsers } from '../../domain/application/getUsers'
 import { makeJobAdder } from '../../domain/application/addJob'
 import { makeJobRemover } from '../../domain/application/removeJob'
 
-import { makeCreateUserController, makeGetUserByIdController } from './user.controller'
+import { makeCreateUserController, makeGetUserByIdController, makeGetUsersController } from './user.controller'
 import { makeAddJobController, makeRemoveJobController } from './job.controller'
 import { makeEducationAdder } from '../../domain/application/addEducationEvent'
 import { makeAddEducationController, makeRemoveEducationController } from './education.controller'
@@ -23,6 +24,9 @@ export const createUserController = makeCreateUserController(userCreator)
 
 const getUserById = makeGetUserById(mongoDBUserRepository)
 export const getUserByIdController = makeGetUserByIdController(getUserById)
+
+const getUsers = makeGetUsers(mongoDBUserRepository)
+export const getUsersController = makeGetUsersController(getUsers)
 
 const addJob = makeJobAdder(mongoDBUserRepository)
 export const addJobController = makeAddJobController(addJob)
