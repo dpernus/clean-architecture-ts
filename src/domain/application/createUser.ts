@@ -5,13 +5,16 @@ export type UserCreator = (
   age: number,
   name: string,
   email: string,
+  address: string,
+  social: string,
+  git: string,
   summary: string,
   keyTerms: string[],
 ) => Promise<number>
 
 export function makeUserCreator(userRepository: UserRepository): UserCreator {
-  return async (age, name, email, summary, keyTerms) => {
-    const user = createUser(age, name, email, summary, keyTerms)
+  return async (age, name, email, address, social, git, summary, keyTerms) => {
+    const user = createUser(age, name, email, address, social, git, summary, keyTerms)
     const userId = await userRepository.addUser(user)
     return userId
   }

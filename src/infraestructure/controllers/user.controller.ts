@@ -8,14 +8,17 @@ export interface UserInput {
   age: number
   name: string
   email: string
+  address: string
+  social: string
+  git: string
   summary: string
   keyTerms: string[]
 }
 
 export function makeCreateUserController(userCreator: UserCreator): Controller<UserInput, { userId: number }> {
   return async (userInfo) => {
-    const { age, name, email, summary, keyTerms } = userInfo
-    const userId = await userCreator(age, name, email, summary, keyTerms)
+    const { age, name, email, address, social, git, summary, keyTerms } = userInfo
+    const userId = await userCreator(age, name, email, address, social, git, summary, keyTerms)
     return { response: { userId }, status: 200 }
   }
 }

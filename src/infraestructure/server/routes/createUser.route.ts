@@ -7,6 +7,9 @@ const userSchema = Joi.object<UserInput>({
   age: Joi.number().integer().required(),
   name: Joi.string().required(),
   email: Joi.string().required(),
+  address: Joi.string(),
+  social: Joi.string(),
+  git: Joi.string(),
   summary: Joi.string().required(),
   keyTerms: Joi.array().items(Joi.string()).required(),
 })
