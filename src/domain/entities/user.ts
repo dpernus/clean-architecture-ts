@@ -32,6 +32,7 @@ export interface User {
     phone?: number
     social?: string
     git?: string
+    picture?: string
   }
   summary: string
   keyTerms: string[]
@@ -59,6 +60,7 @@ export function createUser(
   address: string,
   social: string,
   git: string,
+  picture = '',
   summary: string,
   keyTerms: string[],
   workExperience: Job[] = [],
@@ -84,7 +86,7 @@ export function createUser(
   if (!isValidUser(age, name, email, summary, keyTerms)) {
     throw makeError('INVALID_DATA', 'Invalid data for create user')
   }
-  const personalData = { age, name, email, address, social, git }
+  const personalData = { age, name, email, address, social, git, picture }
   return { id: id || generateId(), personalData, summary, keyTerms, workExperience, education, skills }
 }
 

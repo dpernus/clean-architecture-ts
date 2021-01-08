@@ -52,7 +52,7 @@ export default function makeMongoUserRepository(): UserRepository {
 
       if (dbUser !== null) {
         const {
-          personalData: { age, name, email, address, social, git },
+          personalData: { age, name, email, address, social, git, picture },
           summary,
           keyTerms,
           workExperience,
@@ -67,6 +67,7 @@ export default function makeMongoUserRepository(): UserRepository {
           address,
           social,
           git,
+          picture,
           summary,
           keyTerms,
           workExperience,
@@ -89,7 +90,7 @@ export default function makeMongoUserRepository(): UserRepository {
       if (dbUsers.length > 0) {
         const users = dbUsers.map((user) => {
           const {
-            personalData: { age, name, email, address, social, git },
+            personalData: { age, name, email, address, social, git, picture },
             summary,
             keyTerms,
             workExperience,
@@ -104,6 +105,7 @@ export default function makeMongoUserRepository(): UserRepository {
             address,
             social,
             git,
+            picture,
             summary,
             keyTerms,
             workExperience,
