@@ -19,6 +19,7 @@ const personalDataSchema = new Schema(
     phone: Number,
     social: String,
     git: String,
+    picture: String,
   },
   { _id: false },
 )
@@ -104,6 +105,7 @@ interface UserModel extends Document {
     phone?: number
     social?: string
     git?: string
+    picture?: string
   }
   summary: string
   keyTerms: string[]

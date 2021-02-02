@@ -10,6 +10,7 @@ const userSchema = Joi.object<UserInput>({
   address: Joi.string(),
   social: Joi.string(),
   git: Joi.string(),
+  picture: Joi.string().allow(''),
   summary: Joi.string().required(),
   keyTerms: Joi.array().items(Joi.string()).required(),
 })
@@ -17,7 +18,6 @@ const userSchema = Joi.object<UserInput>({
 export default function createUserRoute(router: Router): void {
   router.post('/user', async (ctx) => {
     const userInfo = ctx.request.body
-
     const validation = userSchema.validate(userInfo)
     if (validation.error !== undefined) {
       const message = `Request for create user fail. Field ${validation.error?.message}`

@@ -60,7 +60,7 @@ export function createUser(
   address: string,
   social: string,
   git: string,
-  picture = '',
+  picture: string = '',
   summary: string,
   keyTerms: string[],
   workExperience: Job[] = [],
